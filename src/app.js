@@ -50,6 +50,39 @@ function toggleTheme() {
 }
 
 // ============================================
+// Mobile Menu Management
+// ============================================
+
+function toggleMobileMenu() {
+    const sidebar = document.getElementById("sidebar");
+    const overlay = document.getElementById("mobileOverlay");
+    const menuToggle = document.getElementById("menuToggle");
+    
+    sidebar.classList.toggle("open");
+    overlay.classList.toggle("active");
+    menuToggle.classList.toggle("active");
+    
+    // Prevent body scroll when menu is open
+    if (sidebar.classList.contains("open")) {
+        document.body.style.overflow = "hidden";
+    } else {
+        document.body.style.overflow = "";
+    }
+}
+
+function closeMobileMenu() {
+    const sidebar = document.getElementById("sidebar");
+    const overlay = document.getElementById("mobileOverlay");
+    const menuToggle = document.getElementById("menuToggle");
+    
+    sidebar.classList.remove("open");
+    overlay.classList.remove("active");
+    menuToggle.classList.remove("active");
+    document.body.style.overflow = "";
+}
+
+
+// ============================================
 // Fetch Documentation Structure
 // ============================================
 
@@ -353,6 +386,9 @@ function renderSidebar(structure) {
             void loadTopic(topicId);
 
             globalThis.location.hash = topicId;
+            
+            // Close mobile menu when topic is selected
+            closeMobileMenu();
         });
     }
 }
@@ -452,6 +488,18 @@ async function startApp() {
     initTheme();
 
     document.getElementById("themeToggle").addEventListener("click", toggleTheme);
+
+    // Mobile menu event listeners
+    const menuToggle = document.getElementById("menuToggle");
+    const mobileOverlay = document.getElementById("mobileOverlay");
+    
+    if (menuToggle) {
+        menuToggle.addEventListener("click", toggleMobileMenu);
+    }
+    
+    if (mobileOverlay) {
+        mobileOverlay.addEventListener("click", closeMobileMenu);
+    }
 
     docsStructure = await fetchDocsStructure();
     renderSidebar(docsStructure);

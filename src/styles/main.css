@@ -544,14 +544,128 @@ body {
    Responsive Design
    ============================================ */
 
+/* Mobile Header - Hidden on desktop */
+.mobile-header {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background-color: var(--color-bg-primary);
+  border-bottom: 1px solid var(--color-border);
+  padding: 0 var(--space-lg);
+  align-items: center;
+  justify-content: space-between;
+  z-index: 200;
+  transition: background-color var(--transition-base),
+    border-color var(--transition-base);
+}
+
+.mobile-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  letter-spacing: -0.025em;
+}
+
+.menu-toggle {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--radius-md);
+  border: none;
+  background-color: var(--color-bg-tertiary);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color var(--transition-fast),
+    transform var(--transition-fast);
+  position: relative;
+}
+
+.menu-toggle:hover {
+  background-color: var(--color-bg-hover);
+  transform: scale(1.05);
+}
+
+.menu-toggle:active {
+  transform: scale(0.95);
+}
+
+.menu-icon,
+.close-icon {
+  position: absolute;
+  transition: opacity var(--transition-base), transform var(--transition-base);
+}
+
+.menu-icon {
+  opacity: 1;
+  transform: rotate(0deg);
+}
+
+.close-icon {
+  opacity: 0;
+  transform: rotate(90deg);
+}
+
+.menu-toggle.active .menu-icon {
+  opacity: 0;
+  transform: rotate(-90deg);
+}
+
+.menu-toggle.active .close-icon {
+  opacity: 1;
+  transform: rotate(0deg);
+}
+
+/* Mobile Overlay */
+.mobile-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 99;
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.mobile-overlay.active {
+  opacity: 1;
+}
+
 @media (max-width: 768px) {
+  .mobile-header {
+    display: flex;
+  }
+
+  .mobile-overlay {
+    display: block;
+    pointer-events: none;
+  }
+
+  .mobile-overlay.active {
+    pointer-events: auto;
+  }
+
+  .app-container {
+    padding-top: 60px;
+  }
+
   .sidebar {
     position: fixed;
     left: -100%;
-    top: 0;
+    top: 60px;
     bottom: 0;
     z-index: 100;
+    width: 85%;
+    max-width: 320px;
     transition: left var(--transition-base);
+    box-shadow: var(--shadow-lg);
   }
 
   .sidebar.open {
