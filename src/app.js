@@ -5,7 +5,7 @@ import { normalizeToString } from "./utils/normalizeToString.js";
 // Configuration
 // ============================================
 
-const DOCS_BASE_PATH = "/src/docs";
+const DOCS_BASE_PATH = "src/docs";
 
 const CHAPTER_METADATA = {
     temario: {title: "📋 Temario Completo", order: 0},
